@@ -2,7 +2,7 @@
 
 File translator based on facebook M2M100_418M AI model
 
-![version](https://img.shields.io/badge/version-0.1.0-green.svg)
+![version](https://img.shields.io/badge/version-0.1.1-green.svg)
 
 ## Installation
 

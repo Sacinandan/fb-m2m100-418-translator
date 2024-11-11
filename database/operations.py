@@ -2,7 +2,7 @@ import os
 import sqlite3
 from typing import List, Tuple
 
-# Database path setup
+
 db_directory = 'database'
 
 if not os.path.exists(db_directory):
@@ -11,13 +11,11 @@ if not os.path.exists(db_directory):
 db_name = os.path.join(db_directory, 'translation.db')
 
 
-# Connect to the database
 def get_db_connection() -> sqlite3.Connection:
     conn = sqlite3.connect(db_name)
     return conn
 
 
-# Create tables
 def create_tables() -> None:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -41,7 +39,6 @@ def create_tables() -> None:
     conn.close()
 
 
-# Insert chunks into the database
 def insert_chunks(chunks: List[str]) -> None:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -53,7 +50,6 @@ def insert_chunks(chunks: List[str]) -> None:
     conn.close()
 
 
-# Update chunk status to 'translated'
 def update_chunk_status(chunk_id: int) -> None:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -62,7 +58,6 @@ def update_chunk_status(chunk_id: int) -> None:
     conn.close()
 
 
-# Retrieve untranslated chunks
 def get_untranslated_chunks() -> List[Tuple[int, str]]:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -72,7 +67,6 @@ def get_untranslated_chunks() -> List[Tuple[int, str]]:
     return rows
 
 
-# Save translated chunks to the database
 def save_translated_chunk(translated_chunk: str) -> None:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -81,7 +75,6 @@ def save_translated_chunk(translated_chunk: str) -> None:
     conn.close()
 
 
-# Save all translated chunks to a file
 def save_translation_to_file(file_name: str, target_lang: str) -> None:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -90,14 +83,11 @@ def save_translation_to_file(file_name: str, target_lang: str) -> None:
     conn.close()
 
     file_path = f"./output/{file_name.replace('.txt', f'-{target_lang}.txt')}"
-    # Write to file
+
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(' '.join(all_translations))
 
-    print(f'Translation saved to {file_path}.')
 
-
-# Clean database tables
 def clear_tables() -> None:
     conn = get_db_connection()
     cursor = conn.cursor()
